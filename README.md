@@ -21,7 +21,7 @@ Enjoy the demo below, featuring myself as the test dummy. This definitely didn't
 - Video Processing: Processes video input to detect and track the basketball, displaying the tracking and prediction results in real-time.
 - Video Output: Saves the processed video with tracking and prediction annotations to a file.
 ## Dependencies
--Python 3.8 or later
+- Python 3.8 or later
 - OpenCV
 - NumPy
 - Ultralytics YOLOv8 (Ensure that you have the correct model file best.pt)
