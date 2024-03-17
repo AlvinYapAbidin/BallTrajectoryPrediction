@@ -4,7 +4,7 @@ from ultralytics import YOLO
 import numpy as np
 from kalman import KalmanFilter
 
-model = YOLO('best.pt')
+model = YOLO('model.pt')
 
 video_path = "Videos/shot3.mp4"
 cap = cv2.VideoCapture(video_path)
