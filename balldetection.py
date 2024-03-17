@@ -3,7 +3,6 @@ import cv2
 from ultralytics import YOLO
 import numpy as np
 from kalman import KalmanFilter
-from draw import Detect
 
 model = YOLO('best.pt')
 
@@ -28,14 +27,10 @@ bgsub = cv2.createBackgroundSubtractorMOG2(history=500, varThreshold=60, detectS
 # Initialize - Kalman Filter
 kf = KalmanFilter()
 
-detect = Detect()
-
 posListX = []
 posListY = []
 predListX = []
 predListY = []
-
-
 
 while cap.isOpened(): # Main Video Loop
     success, frame = cap.read()
@@ -65,7 +60,7 @@ while cap.isOpened(): # Main Video Loop
                     #print(confidence)
                     bounding_box = result.boxes.xyxy[i].cpu().numpy()
                     #print(bounding_box)
-                    if confidence > 0.2:
+                    if confidence > 0.3:
                         b = bounding_box
         
         for i in range(result.boxes.shape[0]):
@@ -74,7 +69,6 @@ while cap.isOpened(): # Main Video Loop
             if name == "basketball" and float(result.boxes.conf[i].item()) > 0.4:
                 bbox = result.boxes.xyxy[i].cpu().numpy()
 
-                # Calculate center of the basketball
                 cx = int((bbox[0] + bbox[2]) / 2)
                 cy = int((bbox[1] + bbox[3]) / 2)
                 posListX.append(cx)
@@ -86,7 +80,7 @@ while cap.isOpened(): # Main Video Loop
                 predListY.append(py)
 
                 cv2.circle(frame, (px, py), 2, (0, 0, 255), 2) # Red for Kalman filter prediction point ahead of moving ball
-                cv2.circle(frame, (cx, cy), 10, (0, 255, 255), 2) # Yellow for tracked ball
+                # cv2.circle(frame, (cx, cy), 10, (0, 255, 255), 2) # Yellow for tracked ball
 
 
         if posListX:
