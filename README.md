@@ -41,7 +41,7 @@ Enjoy the demo below, featuring myself as the test dummy. This definitely didn't
 ## Files
 *balldetection.py*: Main script for ball detection, tracking, and video processing.
 *kalman.py*: Implements the Kalman Filter for motion prediction.
-##Customization
+## Customization
 Feel free to:
 - adjust the detection confidence threshold and other YOLO settings as needed.
 - adjust the Kalman Filter parameters for different types of motion or to improve prediction accuracy.
