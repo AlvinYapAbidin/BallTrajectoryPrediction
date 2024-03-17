@@ -2,7 +2,7 @@
 
 
 ## Overview
-Welcome to my shot tracking computer vision project! In this project I implement basketball detection and tracking utilising a YOLOv8 model to track ball trajectory with the help of OpenCV and it's Kalman filter properties. The implementation takes in video footage and is able to visualise the prediction in real-time. Enjoy the demo below, featuring myself as the test dummy. Definitely didn't take 20 shots to make a basket...
+Welcome to my shot tracking computer vision project! In this project I implement basketball detection and tracking utilising a YOLOv8 model to track ball trajectory with the help of OpenCV and it's Kalman filter properties. The implementation takes in video footage and is able to visualise the prediction in real-time. Enjoy the demo below, featuring myself as the test dummy. This definitely didn't take 20 shots to make a basket...
 
 
 ![Trajectory Example](shot3_output.gif)
