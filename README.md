@@ -5,7 +5,7 @@
 Welcome to my shot tracking computer vision project! In this project I implement basketball detection and tracking utilising a YOLOv8 model to track ball trajectory with the help of OpenCV and it's Kalman filter properties. The implementation takes in video footage and is able to visualise the prediction in real-time. 
 Colour Key:
 - Green is the actual ball trajectory
-- Red is the predicted trajectory
+- Red is the predicted trajectory in front of the ball
 - Pink is the predicted polynomial trajectory
 
 
