@@ -30,12 +30,14 @@ Enjoy the demo below, featuring myself as the test dummy. This definitely didn't
 2. Install the required Python packages:
 
 ``pip install opencv-python-headless numpy``
+
 3. For YOLOv8, follow the installation instructions provided by Ultralytics. Typically, this involves cloning their repository and setting it up as per their documentation.
 ## Usage
 1. Place your video file in the Videos directory and update the video_path variable in balldetection.py to point to your video file.
 2. Run the script:
 ``python balldetection.py``
-3. Processed video will be displayed in real-time and saved to Videos/shot3_output.mp4 (or your specified output path).
+
+4. Processed video will be displayed in real-time and saved to Videos/shot3_output.mp4 (or your specified output path).
 ## Files
 *balldetection.py*: Main script for ball detection, tracking, and video processing.
 *kalman.py*: Implements the Kalman Filter for motion prediction.
