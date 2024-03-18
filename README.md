@@ -12,7 +12,7 @@ Colour Key:
 Enjoy the demo below, featuring myself as the test dummy. This definitely didn't take 20 shots to make a basket...
 
 
-![Trajectory Example](shot3_output.gif)
+![Trajectory Example](Videos/shot3_output.gif)
 
 ## Features
 - Object Detection: Utilizes the YOLOv8 model to detect basketballs in video frames.
