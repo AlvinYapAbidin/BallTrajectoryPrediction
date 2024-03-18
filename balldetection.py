@@ -21,9 +21,6 @@ out = cv2.VideoWriter(output_video_path, fourcc, fps, (width, height))
 b = [] # Store bounding box
 xList = [item for item in range(0, int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)))]
 
-# Initialize - Background Subtractor
-bgsub = cv2.createBackgroundSubtractorMOG2(history=500, varThreshold=60, detectShadows=True)
-
 # Initialize - Kalman Filter
 kf = KalmanFilter()
 
@@ -42,8 +39,6 @@ while cap.isOpened(): # Main Video Loop
         # Visualize the results on the frame
         #annotated_frame = results[0].plot()
 
-        fgMask = bgsub.apply(frame) # Subtract background
-
         #b = results[0].boxes.xyxy[0].cpu().numpy()
         #print(b)
         #print(results[0].boxes.cls)
@@ -52,34 +47,31 @@ while cap.isOpened(): # Main Video Loop
             detection_count = result.boxes.shape[0]
             # print("results: ", result)
             for i in range(detection_count):
+                bbox = result.boxes.xyxy[i].cpu().numpy()
+                confidence = float(result.boxes.conf[i].item())
                 cls = int(result.boxes.cls[i].item())
                 name = result.names[cls]
-                #print(name)
-                if (name=="basketball"):
-                    confidence = float(result.boxes.conf[i].item())
-                    #print(confidence)
-                    bounding_box = result.boxes.xyxy[i].cpu().numpy()
-                    #print(bounding_box)
-                    if confidence > 0.3:
-                        b = bounding_box
-        
-        for i in range(result.boxes.shape[0]):
-            cls = int(result.boxes.cls[i].item())
-            name = result.names[cls]
-            if name == "basketball" and float(result.boxes.conf[i].item()) > 0.4:
-                bbox = result.boxes.xyxy[i].cpu().numpy()
 
+                # Bounding Boxes
+                w, h = bbox[2] - bbox[0], bbox[3] - bbox[1] 
+                # Center Points
                 cx = int((bbox[0] + bbox[2]) / 2)
                 cy = int((bbox[1] + bbox[3]) / 2)
-                posListX.append(cx)
-                posListY.append(cy)
 
-                # Kalman Filter prediction
-                px, py = kf.predict(cx, cy)
-                predListX.append(px)
-                predListY.append(py)
-                
-                
+                #print(name)
+                if (name=="basketball") and confidence > 0.4:
+                    posListX.append(cx)
+                    posListY.append(cy)
+                    # Kalman Filter prediction
+                    px, py = kf.predict(cx, cy)
+                    predListX.append(px)
+                    predListY.append(py)
+                    
+                if name == "rim" and confidence > 0.1:
+                    # Draw rim bounding box
+                    cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 3)
+
+
 
         if posListX:
             # Polynomial Regression y = ax^2 + bx + c
@@ -105,7 +97,7 @@ while cap.isOpened(): # Main Video Loop
 
         cv2.imshow("YOLOv8 Inference", frame)
 
-        if cv2.waitKey(30) & 0xFF == ord("q"):
+        if cv2.waitKey(50) & 0xFF == ord("q"):
             break
     else:
         break 
