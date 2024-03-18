@@ -12,7 +12,7 @@ output_video_path = "Videos/shot3_output.mp4"
 
 width = 1200
 height = 700
-fps = cap.get(cv2.CAP_PROP_FPS)
+fps = (cap.get(cv2.CAP_PROP_FPS)/2)
 
 # Initialize - video writer
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  
@@ -78,10 +78,8 @@ while cap.isOpened(): # Main Video Loop
                 px, py = kf.predict(cx, cy)
                 predListX.append(px)
                 predListY.append(py)
-
-                cv2.circle(frame, (px, py), 2, (0, 0, 255), 2) # Red for Kalman filter prediction point ahead of moving ball
-                # cv2.circle(frame, (cx, cy), 10, (0, 255, 255), 2) # Yellow for tracked ball
-
+                
+                
 
         if posListX:
             # Polynomial Regression y = ax^2 + bx + c
@@ -89,7 +87,7 @@ while cap.isOpened(): # Main Video Loop
 
             for i, (posX, posY) in enumerate(zip(posListX, posListY)):
                 pos = (posX, posY)
-                cv2.circle(frame, pos, 5, (0,255,0), cv2.FILLED)
+                cv2.circle(frame, pos, 10, (0,255,0), cv2.FILLED)
                 if i == 0:
                     cv2.line(frame, pos, pos, (0,255,0), 2)
                 else:
@@ -97,7 +95,7 @@ while cap.isOpened(): # Main Video Loop
             
             # Draw predicted positions with red circles
             for i, (predX, predY) in enumerate(zip(predListX, predListY)):
-                cv2.circle(frame, (predX, predY), 3, (0, 0, 255), 2)
+                cv2.circle(frame, (predX, predY), 10, (0, 0, 255), 2) # Red dots for predicted trajectory
 
             for x in xList:
                 y = int(A * x ** 2 + B * x + C)
@@ -107,7 +105,7 @@ while cap.isOpened(): # Main Video Loop
 
         cv2.imshow("YOLOv8 Inference", frame)
 
-        if cv2.waitKey(1) & 0xFF == ord("q"):
+        if cv2.waitKey(30) & 0xFF == ord("q"):
             break
     else:
         break 
