@@ -46,3 +46,7 @@ Enjoy the demo below, featuring myself as the test dummy. This definitely didn't
 Feel free to:
 - adjust the detection confidence threshold and other YOLO settings as needed.
 - adjust the Kalman Filter parameters for different types of motion or to improve prediction accuracy.
+
+## References
+https://github.com/SriramEmarose/Motion-Prediction-with-Kalman-Filter/blob/master/KalmanFilter.py
+
