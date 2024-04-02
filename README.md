@@ -9,7 +9,7 @@ Colour Key:
 - Pink is the predicted polynomial trajectory
 
 
-Enjoy the demo below, featuring myself as the test dummy. This definitely didn't take 20 shots to make a basket...
+Enjoy the demo below, featuring myself as the test dummy.
 
 
 ![Trajectory Example](Videos/shot3_output.gif)
